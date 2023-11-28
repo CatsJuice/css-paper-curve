@@ -1,0 +1,43 @@
+:root {
+  --w: 300px;
+  --h: 400px;
+  --duration: 2s;
+  --card-bg: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  perspective: 10000px;
+  transform-style: preserve-3d;
+  color: #333;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  background: #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    color: #eee;
+  }
+  html {
+    background: #222;
+  }
+  :root {
+    --card-bg: #333;
+  }
+}
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
