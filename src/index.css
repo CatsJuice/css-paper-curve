@@ -3,6 +3,7 @@
   --h: 400px;
   --duration: 2s;
   --card-bg: #fff;
+  --foreground: #333;
 }
 
 * {
@@ -11,7 +12,16 @@
   box-sizing: border-box;
   perspective: 10000px;
   transform-style: preserve-3d;
-  color: #333;
+  color: var(--foreground);
+}
+
+.leva * {
+  color: unset;
+}
+.leva {
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 html,

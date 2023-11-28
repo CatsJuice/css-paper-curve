@@ -13,7 +13,7 @@ export default defineConfig({
   shortcuts: [
     [
       "btn",
-      "inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700",
+      "flex gap1 items-center px5 py2 rounded-2 bg-primary-1 text-white border-none cursor-pointer after:content-[''] after:absolute after:inset-0 after:rounded-inherit after:bg-white after:opacity-0 hover:after:opacity-10",
     ],
     ["full", "w-full h-full"],
     ["flex-center", "flex items-center justify-center"],
@@ -56,7 +56,7 @@ export default defineConfig({
   safelist: "prose m-auto text-left".split(" "),
   theme: {
     colors: {
-      primary: { 1: '#138D75' },
+      primary: { 1: "#138D75" },
     },
     breakpoints: {
       xs: "320px",
