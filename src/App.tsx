@@ -34,7 +34,10 @@ const App = () => {
           content={<Content />}
         />
       </div>
-      <button className="replay-btn" onClick={() => setKey(key + 1)}>
+      <button
+        className="replay-btn px5 py2 rounded-2 bg-primary-1 text-white fixed bottom-20px left-1/2 -translate-x-1/2 border-none cursor-pointer gap1"
+        onClick={() => setKey(key + 1)}
+      >
         Replay
       </button>
     </>
