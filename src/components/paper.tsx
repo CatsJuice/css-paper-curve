@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Context } from "../context/global";
+import { Context, IPaper } from "../context/global";
 import { Segments } from "./segments";
 
 export interface PaperProps {
@@ -8,7 +8,7 @@ export interface PaperProps {
   content: ReactNode;
 }
 
-export const Paper = ({ segments, centerIndex, content }: PaperProps) => {
+export const Paper = ({ segments, content,  centerIndex }: PaperProps) => {
   return (
     <Context.Provider value={{ segments, centerIndex, content }}>
       <div className="paper">

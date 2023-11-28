@@ -23,12 +23,16 @@
   top: 0;
   right: 0;
 }
+.leva > div {
+  min-width: 310px;
+}
 
 html,
 body,
 #root {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 html {

@@ -1,7 +1,6 @@
 
 .paper
   // border: 2px solid #ccc
-
   --segments: 5
   width: var(--w)
   height: var(--h)
@@ -65,8 +64,10 @@ article
 // animations
 .move-in
   animation: moveIn var(--duration) ease forwards
+  animation-delay: var(--delay)
+  transform: translateY(100vh)
   @keyframes moveIn
     0%
       transform: translateZ(var(--fromZ)) translateX(var(--fromX)) translateY(var(--fromY)) rotateX(var(--fromRotateX)) rotateY(var(--fromRotateY)) rotateZ(var(--fromRotateZ))
     100%
-      transform: translateZ(0px) translateX(0vw) translateY(0vh) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+      transform: translateZ(var(--toZ)) translateX(var(--toX)) translateY(var(--toY)) rotateX(0deg) rotateY(0deg) rotateZ(var(--toRotateZ))

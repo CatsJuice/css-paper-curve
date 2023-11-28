@@ -1,7 +1,7 @@
-export const Content = () => {
+export const Content = ({ id }: { id: number }) => {
   return (
     <article>
-      <h1>🤗 Effects</h1>
+      <h1 className="flex gap1 items-center"><div className="i-uim:react"></div> Effects ({id})</h1>
       <p>
         Effects are an
         <a href="https://react.dev/learn/escape-hatches" target="_blank">

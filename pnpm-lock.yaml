@@ -25,6 +25,9 @@ devDependencies:
   '@iconify-json/fa6-solid':
     specifier: ^1.1.16
     version: 1.1.16
+  '@iconify-json/uim':
+    specifier: ^1.1.7
+    version: 1.1.7
   '@types/animejs':
     specifier: ^3.1.12
     version: 3.1.12
@@ -747,6 +750,12 @@ packages:
 
   /@iconify-json/fa6-solid@1.1.16:
     resolution: {integrity: sha512-JM2TLx3ndIi8cNd9fg9GWzJ/qEDDu41XuVSma0ZPyQfueIGNNwuJJ35Wafvoj9710CoZ95PV7aXFBFMbDUTsEw==, tarball: https://registry.npmmirror.com/@iconify-json/fa6-solid/-/fa6-solid-1.1.16.tgz}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/uim@1.1.7:
+    resolution: {integrity: sha512-CMALpv8/EMZ//5ADSqBgN4L+mkj+MJ9n0VdBhZICp3snCBwtGHWfrZHZltPSJ8OnDj8lKDoGEMZnPcuPaMgcpA==, tarball: https://registry.npmmirror.com/@iconify-json/uim/-/uim-1.1.7.tgz}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
