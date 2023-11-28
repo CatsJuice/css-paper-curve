@@ -1,51 +1,51 @@
-import "./app.sass";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Paper } from "./components/paper";
-import anime from "animejs";
-import { Content } from "./components/content";
-import { useControls, Leva } from "leva";
-import { copy2clipboard } from "./utils/clipboard";
+import './app.sass'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import anime from 'animejs'
+import { Leva, useControls } from 'leva'
+import { Paper } from './components/paper'
+import { Content } from './components/content'
+import { copy2clipboard } from './utils/clipboard'
 import {
   curveConfig,
   enterFromConfig,
   paperCssVars,
   randomConfig,
-} from "./context/global";
+} from './context/global'
 
-const easing = "spring(5, 100, 10, 0)";
+const easing = 'spring(5, 100, 10, 0)'
 
-const AnimateIn = ({
+function AnimateIn({
   id,
   segments,
   onUpdate,
 }: {
-  id: number;
-  segments: number;
-  onUpdate: (args: { [k: number]: any }) => void;
-}) => {
+  id: number
+  segments: number
+  onUpdate: (args: { [k: number]: any }) => void
+}) {
   const paper = useControls(
     `Paper ${id}`,
     randomConfig({ ...curveConfig, ...enterFromConfig }),
-    { collapsed: true }
-  );
+    { collapsed: true },
+  )
 
-  const rotateX = paper.curve / segments;
+  const rotateX = paper.curve / segments
 
   useEffect(() => {
     anime({
       targets: '.segment[data-direction="up"]',
       rotateX: [-rotateX, 0],
       easing,
-    });
+    })
     anime({
       targets: '.segment[data-direction="down"]',
       rotateX: [rotateX, 0],
       easing,
-    });
-  }, []);
-  onUpdate({ [id]: paper });
+    })
+  }, [])
+  onUpdate({ [id]: paper })
 
-  const variables = paperCssVars(paper);
+  const variables = paperCssVars(paper)
 
   return (
     <div className="move-in absolute" style={variables}>
@@ -55,12 +55,12 @@ const AnimateIn = ({
         content={<Content id={id} />}
       />
     </div>
-  );
-};
+  )
+}
 
-const App = () => {
-  const configRef = useRef<Record<string, any>>({});
-  const [key, setKey] = useState(0);
+function App() {
+  const configRef = useRef<Record<string, any>>({})
+  const [key, setKey] = useState(0)
 
   const { segments } = useControls({
     segments: {
@@ -69,17 +69,17 @@ const App = () => {
       max: 20,
       step: 1,
     },
-  });
+  })
 
-  useEffect(() => {
-    replay();
-  }, [segments]);
-
-  const replay = () => setKey(key + 1);
+  const replay = () => setKey(key + 1)
   const copy = useCallback(
     () => copy2clipboard(JSON.stringify(configRef.current)),
-    []
-  );
+    [],
+  )
+
+  useEffect(() => {
+    replay()
+  }, [segments])
 
   return (
     <>
@@ -93,9 +93,8 @@ const App = () => {
             key={i}
             id={i}
             segments={segments}
-            onUpdate={(payload) =>
-              (configRef.current = { ...configRef.current, ...payload })
-            }
+            onUpdate={payload =>
+              (configRef.current = { ...configRef.current, ...payload })}
           />
         ))}
       </div>
@@ -111,7 +110,7 @@ const App = () => {
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

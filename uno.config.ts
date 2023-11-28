@@ -7,17 +7,17 @@ import {
   presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
-} from "unocss";
+} from 'unocss'
 
 export default defineConfig({
   shortcuts: [
     [
-      "btn",
-      "flex gap1 items-center px5 py2 rounded-2 bg-primary-1 text-white border-none cursor-pointer after:content-[''] after:absolute after:inset-0 after:rounded-inherit after:bg-white after:opacity-0 hover:after:opacity-10",
+      'btn',
+      'flex gap1 items-center px5 py2 rounded-2 bg-primary-1 text-white border-none cursor-pointer after:content-[\'\'] after:absolute after:inset-0 after:rounded-inherit after:bg-white after:opacity-0 hover:after:opacity-10',
     ],
-    ["full", "w-full h-full"],
-    ["flex-center", "flex items-center justify-center"],
-    ["w-limited-1", "w-full max-w-1284px px8 mx-auto"],
+    ['full', 'w-full h-full'],
+    ['flex-center', 'flex items-center justify-center'],
+    ['w-limited-1', 'w-full max-w-1284px px8 mx-auto'],
   ],
   rules: [
     // flex
@@ -30,8 +30,8 @@ export default defineConfig({
     [
       /^title-(\d+)$/,
       ([_, size]) => ({
-        "font-size": `${32 - (parseInt(size, 10) - 1) * 4}px`,
-        "font-weight": 600,
+        'font-size': `${32 - (Number.parseInt(size, 10) - 1) * 4}px`,
+        'font-weight': 600,
       }),
     ],
   ],
@@ -53,20 +53,20 @@ export default defineConfig({
     }),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
-  safelist: "prose m-auto text-left".split(" "),
+  safelist: 'prose m-auto text-left'.split(' '),
   theme: {
     colors: {
-      primary: { 1: "#138D75" },
+      primary: { 1: '#138D75' },
     },
     breakpoints: {
-      xs: "320px",
-      sm: "640px",
-      lg: "1024px",
-      xl: "1280px",
+      xs: '320px',
+      sm: '640px',
+      lg: '1024px',
+      xl: '1280px',
     },
     round: {
-      btn: "8px",
-      card: "12px",
+      btn: '8px',
+      card: '12px',
     },
   },
-});
+})

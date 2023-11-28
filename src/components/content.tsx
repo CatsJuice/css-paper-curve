@@ -1,7 +1,13 @@
-export const Content = ({ id }: { id: number }) => {
+export function Content({ id }: { id: number }) {
   return (
     <article>
-      <h1 className="flex gap1 items-center"><div className="i-uim:react"></div> Effects ({id})</h1>
+      <h1 className="flex gap1 items-center">
+        <div className="i-uim:react"></div>
+        {' '}
+        Effects (
+        {id}
+        )
+      </h1>
       <p>
         Effects are an
         <a href="https://react.dev/learn/escape-hatches" target="_blank">
@@ -21,9 +27,11 @@ export const Content = ({ id }: { id: number }) => {
       </p>
       <p>
         For example, this
-        <code>useChatRoom</code> custom Hook “hides” the logic of your Effect
+        <code>useChatRoom</code>
+        {' '}
+        custom Hook “hides” the logic of your Effect
         behind a more declarative API
       </p>
     </article>
-  );
-};
+  )
+}
