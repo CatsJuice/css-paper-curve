@@ -11,21 +11,24 @@ import {
   paperCssVars,
   randomConfig,
 } from './context/global'
+import { ImportConfig } from './components/import-config'
 
 const easing = 'spring(5, 100, 10, 0)'
 
 function AnimateIn({
   id,
   segments,
+  importConfig,
   onUpdate,
 }: {
   id: number
   segments: number
+  importConfig: any
   onUpdate: (args: { [k: number]: any }) => void
 }) {
-  const paper = useControls(
+  const [paper, setPaper] = useControls(
     `Paper ${id}`,
-    randomConfig({ ...curveConfig, ...enterFromConfig }),
+    () => randomConfig({ ...curveConfig, ...enterFromConfig }),
     { collapsed: true },
   )
 
@@ -45,6 +48,15 @@ function AnimateIn({
   }, [])
   onUpdate({ [id]: paper })
 
+  useEffect(() => {
+    if (!importConfig)
+      return
+    const config = importConfig[id]
+    if (!config)
+      return
+    setPaper(config)
+  }, [importConfig])
+
   const variables = paperCssVars(paper)
 
   return (
@@ -61,6 +73,7 @@ function AnimateIn({
 function App() {
   const configRef = useRef<Record<string, any>>({})
   const [key, setKey] = useState(0)
+  const [importConfig, setImportConfig] = useState<any>(null)
 
   const { segments } = useControls({
     segments: {
@@ -81,6 +94,11 @@ function App() {
     replay()
   }, [segments])
 
+  const handleImport = useCallback((config: any) => {
+    setImportConfig(config)
+    replay()
+  }, [replay, setImportConfig])
+
   return (
     <>
       <div className="leva z99">
@@ -93,6 +111,7 @@ function App() {
             key={i}
             id={i}
             segments={segments}
+            importConfig={importConfig}
             onUpdate={payload =>
               (configRef.current = { ...configRef.current, ...payload })}
           />
@@ -108,6 +127,7 @@ function App() {
           <span className="i-fa6-solid:clipboard"></span>
           Copy Configuration
         </button>
+        <ImportConfig onImport={handleImport} />
       </div>
     </>
   )

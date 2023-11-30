@@ -13,7 +13,11 @@ export default defineConfig({
   shortcuts: [
     [
       'btn',
-      'flex gap1 items-center px5 py2 rounded-2 bg-primary-1 text-white border-none cursor-pointer after:content-[\'\'] after:absolute after:inset-0 after:rounded-inherit after:bg-white after:opacity-0 hover:after:opacity-10',
+      'flex gap1 items-center px5 py2 rounded-2 bg-primary-1 text-white border-none cursor-pointer after:content-[\'\'] after:absolute after:inset-0 after:rounded-inherit after:bg-white after:opacity-0 hover:after:opacity-10 items-center justify-center',
+    ],
+    [
+      'btn-outline',
+      'flex gap1 items-center px5 py2 rounded-2 bg-transparent text-primary-1 border-solid outline-none border-1 border-primary-1 cursor-pointer after:content-[\'\'] after:absolute after:inset-0 after:rounded-inherit after:bg-white after:opacity-0 hover:after:opacity-10 items-center justify-center',
     ],
     ['full', 'w-full h-full'],
     ['flex-center', 'flex items-center justify-center'],
@@ -57,6 +61,7 @@ export default defineConfig({
   theme: {
     colors: {
       primary: { 1: '#138D75' },
+      cardBg: 'var(--card-bg)',
     },
     breakpoints: {
       xs: '320px',
