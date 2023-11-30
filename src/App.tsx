@@ -11,7 +11,7 @@ import {
   paperCssVars,
   randomConfig,
 } from './context/global'
-import { ImportConfig } from './components/import-config'
+import { ImportConfig, getSharedConfigFromUrl } from './components/import-config'
 
 const easing = 'spring(5, 100, 10, 0)'
 
@@ -89,10 +89,22 @@ function App() {
     () => copy2clipboard(JSON.stringify(configRef.current)),
     [],
   )
+  const share = useCallback(() => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('share', encodeURIComponent(JSON.stringify(configRef.current)))
+    copy2clipboard(url.href)
+  }, [])
 
   useEffect(() => {
     replay()
   }, [segments])
+
+  useEffect(() => {
+    const shared = getSharedConfigFromUrl()
+    if (!shared)
+      return
+    setImportConfig(shared)
+  }, [])
 
   const handleImport = useCallback((config: any) => {
     setImportConfig(config)
@@ -126,6 +138,10 @@ function App() {
         <button className="export-btn btn" onClick={copy}>
           <span className="i-fa6-solid:clipboard"></span>
           Copy Configuration
+        </button>
+        <button className="share btn" onClick={share}>
+          <span className="i-fa6-solid:share"></span>
+          Copy Share Link
         </button>
         <ImportConfig onImport={handleImport} />
       </div>

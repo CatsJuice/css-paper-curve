@@ -89,3 +89,11 @@ export function ImportConfig({
     </>
   )
 }
+
+export function getSharedConfigFromUrl(key = 'share') {
+  const raw = new URLSearchParams(window.location.search).get(key)
+  const decoded = raw ? decodeURIComponent(raw) : null
+  if (!decoded)
+    return null
+  return JSON.parse(decoded)
+}
