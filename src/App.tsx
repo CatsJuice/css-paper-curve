@@ -36,14 +36,16 @@ function AnimateIn({
 
   useEffect(() => {
     anime({
-      targets: '.segment[data-direction="up"]',
+      targets: `[data-id="${id}"] .segment[data-direction="up"]`,
       rotateX: [-rotateX, 0],
       easing,
+      delay: paper.delay,
     })
     anime({
-      targets: '.segment[data-direction="down"]',
+      targets: `[data-id="${id}"] .segment[data-direction="down"]`,
       rotateX: [rotateX, 0],
       easing,
+      delay: paper.delay,
     })
   }, [paper])
   onUpdate({ [id]: paper })
@@ -60,7 +62,7 @@ function AnimateIn({
   const variables = paperCssVars(paper)
 
   return (
-    <div className="move-in absolute" style={variables}>
+    <div data-id={id} className="move-in absolute" style={variables}>
       <Paper
         segments={segments}
         centerIndex={Math.min(segments - 1, Math.max(0, paper.curveCenter))}
@@ -124,8 +126,10 @@ function App() {
             id={i}
             segments={segments}
             importConfig={importConfig}
-            onUpdate={payload =>
-              (configRef.current = { ...configRef.current, ...payload })}
+            onUpdate={(payload) => {
+              (configRef.current = { ...configRef.current, ...payload })
+              setImportConfig(null)
+            }}
           />
         ))}
       </div>
