@@ -45,7 +45,7 @@ function AnimateIn({
       rotateX: [rotateX, 0],
       easing,
     })
-  }, [])
+  }, [paper])
   onUpdate({ [id]: paper })
 
   useEffect(() => {
