@@ -37,18 +37,20 @@ function AnimateIn({
 
   useEffect(() => {
     setFinished(false)
-    anime({
-      targets: `[data-id="${id}"] .segment[data-direction="up"]`,
-      rotateX: [-rotateX, 0],
-      easing,
-      delay: paper.delay,
-    })
-    anime({
-      targets: `[data-id="${id}"] .segment[data-direction="down"]`,
-      rotateX: [rotateX, 0],
-      easing,
-      delay: paper.delay,
-    }).finished.then(() => {
+    Promise.all([
+      anime({
+        targets: `[data-id="${id}"] .segment[data-direction="up"]`,
+        rotateX: [-rotateX, 0],
+        easing,
+        delay: paper.delay,
+      }).finished,
+      anime({
+        targets: `[data-id="${id}"] .segment[data-direction="down"]`,
+        rotateX: [rotateX, 0],
+        easing,
+        delay: paper.delay,
+      }).finished,
+    ]).then(() => {
       setFinished(true)
     })
   }, [paper])
