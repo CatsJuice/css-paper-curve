@@ -13,19 +13,20 @@ import {
 } from './context/global'
 import { ImportConfig, getSharedConfigFromUrl } from './components/import-config'
 
-const easing = 'spring(5, 100, 10, 0)'
-
 function AnimateIn({
   id,
   segments,
   importConfig,
+  easing,
   onUpdate,
 }: {
+  easing: string
   id: number
   segments: number
   importConfig: any
   onUpdate: (args: { [k: number]: any }) => void
 }) {
+  const [finished, setFinished] = useState(false)
   const [paper, setPaper] = useControls(
     `Paper ${id}`,
     () => randomConfig({ ...curveConfig, ...enterFromConfig }),
@@ -35,6 +36,7 @@ function AnimateIn({
   const rotateX = paper.curve / segments
 
   useEffect(() => {
+    setFinished(false)
     anime({
       targets: `[data-id="${id}"] .segment[data-direction="up"]`,
       rotateX: [-rotateX, 0],
@@ -46,6 +48,8 @@ function AnimateIn({
       rotateX: [rotateX, 0],
       easing,
       delay: paper.delay,
+    }).finished.then(() => {
+      setFinished(true)
     })
   }, [paper])
   onUpdate({ [id]: paper })
@@ -59,10 +63,13 @@ function AnimateIn({
     setPaper(config)
   }, [importConfig])
 
-  const variables = paperCssVars(paper)
+  const style = {
+    ...paperCssVars(paper),
+    borderColor: finished ? 'red' : 'transparent',
+  }
 
   return (
-    <div data-id={id} className="move-in absolute" style={variables}>
+    <div data-id={id} className="move-in absolute border-2 border-solid" style={style}>
       <Paper
         segments={segments}
         centerIndex={Math.min(segments - 1, Math.max(0, paper.curveCenter))}
@@ -77,6 +84,32 @@ function App() {
   const [key, setKey] = useState(0)
   const [importConfig, setImportConfig] = useState<any>(null)
 
+  const { mass, stiffness, damping, velocity } = useControls('Spring', {
+    mass: {
+      value: 5,
+      min: 0,
+      max: 100,
+      step: 0.01,
+    },
+    stiffness: {
+      value: 100,
+      min: 0,
+      max: 100,
+      step: 1,
+    },
+    damping: {
+      value: 10,
+      min: 0,
+      max: 100,
+      step: 0.01,
+    },
+    velocity: {
+      value: 0,
+      min: 0,
+      max: 100,
+      step: 0.01,
+    },
+  }, { collapsed: true })
   const { segments } = useControls({
     segments: {
       value: 8,
@@ -85,6 +118,7 @@ function App() {
       step: 1,
     },
   })
+  const easing = `spring(${mass}, ${stiffness}, ${damping}, ${velocity})`
 
   const replay = () => setKey(key + 1)
   const copy = useCallback(
@@ -99,7 +133,7 @@ function App() {
 
   useEffect(() => {
     replay()
-  }, [segments])
+  }, [segments, easing])
 
   useEffect(() => {
     const shared = getSharedConfigFromUrl()
@@ -125,6 +159,7 @@ function App() {
             key={i}
             id={i}
             segments={segments}
+            easing={easing}
             importConfig={importConfig}
             onUpdate={(payload) => {
               (configRef.current = { ...configRef.current, ...payload })
